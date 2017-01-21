@@ -5,6 +5,10 @@ class Updater{
   constructor(){
     this.objects = [];
     this.frameID = 0;
+    this.renderFunction = function(){
+      console.error('no render function specified');
+      this.Stop();
+    };
   }
 //------------------------------------------------------------------------------
   Start(){
@@ -17,6 +21,11 @@ class Updater{
 //------------------------------------------------------------------------------
   Clear(){
     this.objects.length = 0;
+  }
+//------------------------------------------------------------------------------
+  SetRenderFunction(func){
+    if(typeof(func) === 'function')
+      this.renderFunction = func;
   }
 //------------------------------------------------------------------------------
   /**
@@ -77,10 +86,13 @@ class Updater{
    * @param {number} total total time passes since app start
    */
   Update(){
+    this.frameID = requestAnimationFrame(this.Update.bind(this));
+
     this.objects.forEach(function(obj) {
       obj.Update();
     });
-    this.frameID = requestAnimationFrame(this.Update.bind(this));
+
+    this.renderFunction();
   }
 //------------------------------------------------------------------------------
   Invoke(func, ms){

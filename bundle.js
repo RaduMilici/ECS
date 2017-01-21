@@ -4,12 +4,17 @@ let Behavior = require('../core/behavior');
 
 module.exports = class Component extends Behavior{
 //------------------------------------------------------------------------------
-  constructor(){
+  constructor(entity){
     super();
+    this.entity = entity;
   }
 //------------------------------------------------------------------------------  
   Awake(){
 
+  }
+//------------------------------------------------------------------------------ 
+  Update(){
+    
   }
 //------------------------------------------------------------------------------  
 }
@@ -43,54 +48,60 @@ module.exports = class Behavior{
 }
 
 
-},{"../systems":9}],4:[function(require,module,exports){
+},{"../systems":10}],4:[function(require,module,exports){
 'use strict'
 let ECS = require('./');
+let rotate = require('./rotate');
 
-module.exports = class Rotate extends ECS.Entity{
+module.exports = class Cube extends ECS.Entity{
 //------------------------------------------------------------------------------
-  constructor(){
+  constructor(x = 0, y = 0, z = 0){
     super();
-    
     let geometry = new THREE.BoxGeometry( 1, 1, 1 );
-    let material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+    let material = new THREE.MeshBasicMaterial( { color: Math.random() * 0xffffff } );
     let cube = new THREE.Mesh( geometry, material );
+    this.position.set(x, y, z);
     this.add( cube );
   }
 //------------------------------------------------------------------------------
-  Update(){
-    this.rotation.y += 0.01;
-  }
-//------------------------------------------------------------------------------
 }
-},{"./":7}],5:[function(require,module,exports){
+},{"./":7,"./rotate":9}],5:[function(require,module,exports){
 'use strict'
 let Behavior = require('../core/behavior');
+let Component = require('../components').Component;
 
 module.exports = class Entity extends Behavior{
 //------------------------------------------------------------------------------
   constructor(){
     super();
     // inherit from THREE.Object3D
-    //THREE.Object3D.call(this);
+    THREE.Object3D.call(this);
     Object.assign(this, THREE.Object3D, THREE.Object3D.prototype);
-    //entity specific arrays
+    // entity specific
     this.meshes = [];
-    this.components = [];
+    this.components = {};
   }
 //------------------------------------------------------------------------------  
   Awake(){
 
   }
 //------------------------------------------------------------------------------  
-  dispatchEvent(){
+  AddComponent(component){
+    if(component instanceof Component === false)
+    if(typeof component === 'function')
+      component = new component(this);
 
+    this.components[component.name] = component;
+    component.entity = this;
+
+    if(typeof component.Start === 'function')
+      component.Start(this);
   }
 //------------------------------------------------------------------------------  
 }
 
 
-},{"../core/behavior":3}],6:[function(require,module,exports){
+},{"../components":2,"../core/behavior":3}],6:[function(require,module,exports){
 let Entity = require('./entity');
 
 module.exports = { Entity }; 
@@ -99,49 +110,69 @@ let systems = require('./systems');
 let Component = require('./components').Component;
 let Entity = require('./entities').Entity;
 
-systems.updater.Start();
+//systems.updater.Start();
 
 module.exports = { Entity, Component, systems };
-},{"./components":2,"./entities":6,"./systems":9}],8:[function(require,module,exports){
-let ECS = require('./');
-let cube = require('./cube');
-let test = new cube();
-console.log(test);
-
+},{"./components":2,"./entities":6,"./systems":10}],8:[function(require,module,exports){
 let scene = new THREE.Scene();
 let camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-
 let renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
+//------------------------------------------------------------------------------
+let ECS = require('./');
+let Cube = require('./cube');
+let Rotate = require('./rotate');
 
-scene.add( test );
+for(let i = 0; i < 1; i++){
+  let cube = new Cube();
+  let rotate = new Rotate(cube);
+  scene.add(cube);
+}  
 
-camera.position.z = 5;
+camera.position.z = 10;
+//------------------------------------------------------------------------------
 
-let render = {
-  Update: function(){
-    renderer.render(scene, camera);
-  }
-};
+function render(){
+  renderer.render(scene, camera);
+}
 
-ECS.systems.updater.Add(render);
+ECS.systems.updater.SetRenderFunction(render);
 ECS.systems.updater.Start();
 
-//render.Update();
+},{"./":7,"./cube":4,"./rotate":9}],9:[function(require,module,exports){
+'use strict'
+let ECS = require('./');
 
-//Updater.Add(render);
-//Updater.Start();
+module.exports = class Rotate extends ECS.Component{
+//------------------------------------------------------------------------------
+  constructor(entity){
+    super(entity);
+    this.name = 'rotate';
+    this.spinVector = new THREE.Vector3();
+  }
+//------------------------------------------------------------------------------  
+  Start(vector ){
+    this.spinVector = vector;
+  }
+//------------------------------------------------------------------------------  
+  Update(){
+    this.entity.rotation.x += this.spinVector.x;
+    this.entity.rotation.y += this.spinVector.y;
+    this.entity.rotation.z += this.spinVector.z;
+  }
+//------------------------------------------------------------------------------  
+}
 
-//render();
-},{"./":7,"./cube":4}],9:[function(require,module,exports){
+
+},{"./":7}],10:[function(require,module,exports){
 let injector = require('./injector');
 let updater = require('./updater');
 let util = require('./util');
 let loader = require('./loader');
 
 module.exports = { injector, updater, util, loader };
-},{"./injector":10,"./loader":11,"./updater":12,"./util":13}],10:[function(require,module,exports){
+},{"./injector":11,"./loader":12,"./updater":13,"./util":14}],11:[function(require,module,exports){
 'use strict';
 
 let systems = require('./');
@@ -168,7 +199,7 @@ class Injector{
 }
 
 module.exports = new Injector();
-},{"./":9}],11:[function(require,module,exports){
+},{"./":10}],12:[function(require,module,exports){
 class Loader{
 //------------------------------------------------------------------------------
   constructor(){
@@ -182,7 +213,7 @@ class Loader{
 }
 
 module.exports = new Loader();
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 "use strict"
 class Updater{
 
@@ -190,6 +221,10 @@ class Updater{
   constructor(){
     this.objects = [];
     this.frameID = 0;
+    this.renderFunction = function(){
+      console.error('no render function specified');
+      this.Stop();
+    };
   }
 //------------------------------------------------------------------------------
   Start(){
@@ -202,6 +237,11 @@ class Updater{
 //------------------------------------------------------------------------------
   Clear(){
     this.objects.length = 0;
+  }
+//------------------------------------------------------------------------------
+  SetRenderFunction(func){
+    if(typeof(func) === 'function')
+      this.renderFunction = func;
   }
 //------------------------------------------------------------------------------
   /**
@@ -262,10 +302,13 @@ class Updater{
    * @param {number} total total time passes since app start
    */
   Update(){
+    this.frameID = requestAnimationFrame(this.Update.bind(this));
+
     this.objects.forEach(function(obj) {
       obj.Update();
     });
-    this.frameID = requestAnimationFrame(this.Update.bind(this));
+
+    this.renderFunction();
   }
 //------------------------------------------------------------------------------
   Invoke(func, ms){
@@ -276,7 +319,7 @@ class Updater{
 }
 
 module.exports = new Updater();
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 class Util {
 //------------------------------------------------------------------------------
   constructor(){
