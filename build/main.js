@@ -226,7 +226,7 @@ function loadCube(x, z){
 function makeScene(){
   //plane
   let geom = new THREE.PlaneGeometry(side * 2, side * 2);
-  let mesh = new THREE.Mesh(geom, new THREE.MeshLambertMaterial());
+  let mesh = new THREE.Mesh(geom, new THREE.MeshLambertMaterial({color: 0xCDC9C9}));
   mesh.position.set(middle.x, -1, middle.z);
   mesh.rotation.x -= Math.PI / 2;
   mesh.receiveShadow = true;
