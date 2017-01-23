@@ -13,8 +13,7 @@ module.exports = class Cube extends ECS.Entity{
   }
 //------------------------------------------------------------------------------
   Start(settings){
-    if(settings && settings.pos)
-      this.position.copy(settings.pos);
+    if(settings && settings.pos) this.position.copy(settings.pos);
     //this.meshes.monster.scale.setScalar(0.001);
     this.AddComponent(rotate);
     this.AddComponent(scale);

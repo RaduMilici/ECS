@@ -5,10 +5,7 @@ class Updater{
   constructor(){
     this.objects = [];
     this.frameID = 0;
-    this.renderFunction = function(){
-      console.error('no render function specified');
-      this.Stop();
-    };
+    this.renderFunction = function(){};
   }
 //------------------------------------------------------------------------------
   Start(){

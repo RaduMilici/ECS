@@ -18,30 +18,23 @@ class SceneData{
 
     let selectedLayer = this.layers[layer];
 
+    // layer does not exist, first create it
     if(selectedLayer === undefined)
       selectedLayer = this.layers[layer] = new Layer();      
 
+    //then populate it
     selectedLayer.meshes.push(entity);
   }
 //------------------------------------------------------------------------------
   ToggleLayer(layer, bool){
     let selectedLayer = this.layers[layer];
-
-    if(selectedLayer === undefined)
-      return;
-    
-    selectedLayer.SetVisibility(bool);
+    if(selectedLayer !== undefined) selectedLayer.SetVisibility(bool);
   }
 //------------------------------------------------------------------------------
   CallOnLayer(layer, func){
     if(layer === undefined || typeof func !== 'function') return;
-
     let selectedLayer = this.layers[layer];
-
-    if(selectedLayer === undefined) return;
-
-    selectedLayer.CallOnMeshes(func);
-
+    if(selectedLayer !== undefined) selectedLayer.CallOnMeshes(func);
   }
 //------------------------------------------------------------------------------
 }

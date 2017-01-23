@@ -134,29 +134,44 @@ let Entity = require('./entity');
 
 module.exports = { Entity }; 
 },{"./entity":4}],6:[function(require,module,exports){
+//can be extended for use with ECS
 let Component = require('./components').Component;
 let Entity = require('./entities').Entity;
+//------------------------------------------------------------------------------
+//internal systems, exposed for customization
 let systems = require('./systems');
-
+//------------------------------------------------------------------------------
 let Start = systems.updater.Start.bind(systems.updater);
 let Stop = systems.updater.Stop.bind(systems.updater);
-
+//------------------------------------------------------------------------------
+//use this to load entities, uses the injector internally 
 let LoadEntity = systems.injector.LoadEntity.bind(systems.injector);
+//------------------------------------------------------------------------------
 //layers
 let ToggleLayer = systems.sceneData.ToggleLayer.bind(systems.sceneData);
 let CallOnLayer = systems.sceneData.CallOnLayer.bind(systems.sceneData);
-
+//------------------------------------------------------------------------------
+/*
+  WARNING: choose only one of the following, do NOT do doth:
+  1: pass your render function to 'ECS.SetRenderFunction' to draw internally 
+     after all entities/components update. this is the preferred way.
+  2: handle the render loop externally and run ECS.Update() there while passing
+     the 'requestAnimationFrame' timestamp as an argument
+*/
 let SetRenderFunction = systems.updater.SetRenderFunction.bind(systems.updater);
+let Update = systems.updater.Update.bind(systems.updater);
+//------------------------------------------------------------------------------
 let Util = systems.util;
-
+//------------------------------------------------------------------------------
 module.exports = { 
   Start, Stop,
   Entity, Component, systems, 
   LoadEntity, 
   ToggleLayer, CallOnLayer,
-  SetRenderFunction, 
+  SetRenderFunction, Update,
   Util 
 };
+//------------------------------------------------------------------------------
 },{"./components":2,"./entities":5,"./systems":11}],7:[function(require,module,exports){
 'use strict'
 
@@ -173,8 +188,7 @@ module.exports = class Cube extends ECS.Entity{
   }
 //------------------------------------------------------------------------------
   Start(settings){
-    if(settings && settings.pos)
-      this.position.copy(settings.pos);
+    if(settings && settings.pos) this.position.copy(settings.pos);
     //this.meshes.monster.scale.setScalar(0.001);
     this.AddComponent(rotate);
     this.AddComponent(scale);
@@ -311,6 +325,7 @@ class Injector{
 //------------------------------------------------------------------------------
   LoadEntity(entity, settings){
     let scope = this;
+    settings = settings || {_none: true};
 
     function load(resolve, reject) {
       let instance = new entity();
@@ -422,30 +437,23 @@ class SceneData{
 
     let selectedLayer = this.layers[layer];
 
+    // layer does not exist, first create it
     if(selectedLayer === undefined)
       selectedLayer = this.layers[layer] = new Layer();      
 
+    //then populate it
     selectedLayer.meshes.push(entity);
   }
 //------------------------------------------------------------------------------
   ToggleLayer(layer, bool){
     let selectedLayer = this.layers[layer];
-
-    if(selectedLayer === undefined)
-      return;
-    
-    selectedLayer.SetVisibility(bool);
+    if(selectedLayer !== undefined) selectedLayer.SetVisibility(bool);
   }
 //------------------------------------------------------------------------------
   CallOnLayer(layer, func){
     if(layer === undefined || typeof func !== 'function') return;
-
     let selectedLayer = this.layers[layer];
-
-    if(selectedLayer === undefined) return;
-
-    selectedLayer.CallOnMeshes(func);
-
+    if(selectedLayer !== undefined) selectedLayer.CallOnMeshes(func);
   }
 //------------------------------------------------------------------------------
 }
@@ -459,10 +467,7 @@ class Updater{
   constructor(){
     this.objects = [];
     this.frameID = 0;
-    this.renderFunction = function(){
-      console.error('no render function specified');
-      this.Stop();
-    };
+    this.renderFunction = function(){};
   }
 //------------------------------------------------------------------------------
   Start(){

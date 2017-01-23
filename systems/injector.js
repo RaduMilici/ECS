@@ -9,6 +9,7 @@ class Injector{
 //------------------------------------------------------------------------------
   LoadEntity(entity, settings){
     let scope = this;
+    settings = settings || {_none: true};
 
     function load(resolve, reject) {
       let instance = new entity();
