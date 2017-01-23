@@ -85,11 +85,11 @@ class Updater{
    * @param {number} elapsed elapsed time since rendering last frame
    * @param {number} total total time passes since app start
    */
-  Update(){
+  Update(time){
     this.frameID = requestAnimationFrame(this.Update.bind(this));
 
     this.objects.forEach(function(obj) {
-      obj.Update();
+      obj.Update(time);
     });
 
     this.renderFunction();
