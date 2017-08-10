@@ -1,7 +1,7 @@
 {
-  "name": "ecs",
+  "name": "ECS",
   "version": "1.0.0",
-  "description": ">Entity-component-system (ECS) is an architectural pattern that is mostly used in game development. An ECS follows the Composition over inheritance principle that allows greater flexibility in defining entities where every object in a game's scene is an entity (e.g. enemies, bullets, vehicles, etc.).",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,16 +10,14 @@
     "type": "git",
     "url": "git+https://github.com/RaduMilici/ECS.git"
   },
-  "author": "radumilici",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/RaduMilici/ECS/issues"
   },
   "homepage": "https://github.com/RaduMilici/ECS#readme",
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-browserify": "^0.5.1",
-    "gulp-livereload": "^3.8.1",
-    "gulp-watch": "^4.3.11"
+    "webpack": "^3.5.3"
   }
 }
