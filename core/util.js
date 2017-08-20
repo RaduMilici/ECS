@@ -22,6 +22,10 @@ class Util {
     let colors = ['red', 'green', 'blue'];
     return colors[Math.round(Math.random() * (colors.length - 1))];
   }
+
+  randomFloat (min, max) {
+    return Math.random() * (max - min) + min;
+  }
 }
 
 export default new Util();

@@ -1,4 +1,5 @@
 import { Renderer, Scene } from 'root/app/init';
+import Behavior from 'root/core/behavior';
 
 class Update {
 
@@ -43,7 +44,7 @@ class Update {
   }
 
   update() {
-    this.updateQ.forEach(element => { element.__update(); });
+    this.updateQ.forEach(element => { element.update(); });
   }
 
   render() {
@@ -51,7 +52,9 @@ class Update {
   }
 
   add(toUpdate) {
-    this.updateQ.push(toUpdate);
+    if (toUpdate instanceof Behavior) {
+      this.updateQ.push(toUpdate);
+    }
   }
 }
 

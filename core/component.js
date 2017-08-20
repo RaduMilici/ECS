@@ -9,7 +9,7 @@ export default class Component extends Behavior {
     super();
     this.__ecs.__injector = injector;
     this.start = util.createInterceptor(this, this.__start, this.start);
-    this.start = util.createInterceptor(this, this.__update, this.update);
+    this.update = util.createInterceptor(this, this.__update, this.update);
   }
 
   __start() {

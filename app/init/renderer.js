@@ -6,10 +6,10 @@ const defaultSettings = {
 };
 
 export default class __Renderer {
-  constructor({ width, height } = defaultSettings) {
+  constructor({ width, height } = defaultSettings, container) {
     this.renderer = new WebGLRenderer();
     this.renderer.setSize( width, height );
-    document.body.appendChild( this.renderer.domElement );
+    container.append(this.renderer.domElement);
   }
 
   render(scene, camera) {

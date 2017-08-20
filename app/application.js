@@ -1,4 +1,5 @@
 import { Initializer } from './init';
+import { injector } from 'root/core';
 
 class Application {
   constructor() {
@@ -9,8 +10,8 @@ class Application {
     this.camera = null;
   }
 
-  init() {
-    this.initializer.init();
+  init(settings) {
+    this.initializer.init(settings);
   }
 
   createScene() {
@@ -30,6 +31,7 @@ class Application {
   add(entity) {
     if (this.scene) {
       this.scene.add(entity);
+      injector.startEntity(entity);
     }
   }
 }
