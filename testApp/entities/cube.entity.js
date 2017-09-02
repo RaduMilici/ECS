@@ -13,8 +13,6 @@ class CubeEntity extends ECS.Entity {
 
   start() {
     this.add(util.getTestCube());
-    const a = 4;
-    this.position.set(util.randomFloat(-a, a), util.randomFloat(-a, a), 0);
   }
 
 
@@ -27,8 +25,7 @@ class CubeEntity extends ECS.Entity {
   }
 
   fire() {
-    const missile = ECS.application.add(new Missile());
-    missile.position.copy(this.position);
+    ECS.application.add(new Missile(), this.position);
   }
 }
 

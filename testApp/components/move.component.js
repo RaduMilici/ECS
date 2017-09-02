@@ -5,7 +5,7 @@ export default class Move extends ECS.Component {
   constructor() {
     super();
     this.name = 'Move';
-    this._velocity = new Vector3();
+    this.velocity = new Vector3();
     this._direction = new Vector3();
     this._speed = 0;
   }
@@ -25,10 +25,10 @@ export default class Move extends ECS.Component {
   }
 
   updateVelocity() {
-    this._velocity = this._direction.clone().multiplyScalar(this._speed);
+    this.velocity = this._direction.clone().multiplyScalar(this._speed);
   }
 
   update(delta) {
-    this.entity.position.add(this._velocity.clone().multiplyScalar(delta));
+    this.entity.position.add(this.velocity.clone().multiplyScalar(delta));
   }
 }

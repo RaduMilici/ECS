@@ -1,4 +1,5 @@
 import { Initializer } from './init';
+import { Vector3 } from 'three';
 import { injector } from 'root/core';
 
 class Application {
@@ -28,9 +29,10 @@ class Application {
     }
   }
 
-  add(entity) {
+  add(entity, position = new Vector3()) {
     if (this.scene) {
       this.scene.add(entity);
+      entity.position.copy(position);
       return injector.startEntity(entity);
     }
   }

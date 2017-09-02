@@ -13,5 +13,3 @@ const settings = {
 ECS.application.init(settings);
 ECS.application.add(new cubeEntity());
 ECS.application.camera.position.z = 5;
-
-console.log(ECS);
