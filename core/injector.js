@@ -27,6 +27,7 @@ class Injector {
     entity.start();
     this.startComponents(entity);
     entity.children.forEach(c => c.entity = entity);
+    return entity;
   }
 
   startComponents(entity) {

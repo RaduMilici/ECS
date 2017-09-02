@@ -7,6 +7,7 @@ export default class Entity extends Behavior {
 
   constructor() {
     super();
+    this.components = [];
     this.__extendObject3D();
     this.__assignEntityProperties();
     this.start = util.createInterceptor(this, this.__start, this.start);

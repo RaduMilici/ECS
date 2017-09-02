@@ -31,7 +31,7 @@ class Application {
   add(entity) {
     if (this.scene) {
       this.scene.add(entity);
-      injector.startEntity(entity);
+      return injector.startEntity(entity);
     }
   }
 }

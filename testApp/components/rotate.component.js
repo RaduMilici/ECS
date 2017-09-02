@@ -1,10 +1,10 @@
-import * as ECS from 'root';
+import ECS from 'root';
 import { util } from 'root/core';
 
 export default class Rotate extends ECS.Component {
   constructor() {
     super();
-    this.name = 'TestComponent';
+    this.name = 'Rotate';
   }
 
   start() {

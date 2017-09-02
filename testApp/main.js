@@ -1,5 +1,5 @@
-import * as ECS from 'root';
-import cubeEntity from './cube.entity';
+import ECS from 'root';
+import cubeEntity from './entities/cube.entity';
 
 const settings = {
   fov: 75,
@@ -11,10 +11,7 @@ const settings = {
 };
 
 ECS.application.init(settings);
-
-for (let i = 0; i < 100; i++)
-  ECS.application.add(new cubeEntity());
-
+ECS.application.add(new cubeEntity());
 ECS.application.camera.position.z = 5;
 
 console.log(ECS);
