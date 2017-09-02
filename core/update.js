@@ -1,4 +1,5 @@
 import { Renderer, Scene } from 'root/app/init';
+import { Clock } from 'three';
 import Behavior from 'root/core/behavior';
 
 class Update {
@@ -7,6 +8,7 @@ class Update {
     this.animationFrameId = null;
     this.isRunning = false;
     this.updateQ = [];
+    this.clock = new Clock();
     this.__scene = null;
     this.__renderer = null;
     this.__camera = null;
@@ -44,7 +46,8 @@ class Update {
   }
 
   update() {
-    this.updateQ.forEach(element => { element.update(); });
+    const delta = this.clock.getDelta();
+    this.updateQ.forEach(element => { element.update(delta); });
   }
 
   render() {

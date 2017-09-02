@@ -12,7 +12,7 @@ export default class Missile extends ECS.Entity {
 
   start() {
     this.components.Move.direction = new Vector3(0, 1, 0);
-    this.components.Move.speed = 0.3;
+    this.components.Move.speed = 10;
     this.add(util.getTestCube(0.1, 0.5, 0.1));
   }
 }

@@ -28,7 +28,7 @@ export default class Move extends ECS.Component {
     this._velocity = this._direction.clone().multiplyScalar(this._speed);
   }
 
-  update() {
-    this.entity.position.add(this._velocity);
+  update(delta) {
+    this.entity.position.add(this._velocity.clone().multiplyScalar(delta));
   }
 }
