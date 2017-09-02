@@ -28,4 +28,10 @@ export default class __Scene {
       this.scene.add(entity);
     }
   }
+
+  remove(entity) {
+    if (entity instanceof Entity) {
+      this.scene.remove(entity);
+    }
+  }
 }

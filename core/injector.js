@@ -1,4 +1,5 @@
 import { mouse } from 'root/app/init';
+import util from './util';
 
 class Injector {
 
@@ -31,9 +32,11 @@ class Injector {
   }
 
   startComponents(entity) {
-    Object.keys(entity.components).forEach((componentName) => {
-      entity.components[componentName].start();
-    });
+    util.loopObjectKeys(entity.components, c => c.start());
+  }
+
+  stopComponents(entity) {
+    util.loopObjectKeys(entity.components, c => c.stop());
   }
 
 }

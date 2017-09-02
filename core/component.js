@@ -9,6 +9,7 @@ export default class Component extends Behavior {
     super();
     this.__ecs.__injector = injector;
     this.start = util.createInterceptor(this, this.__start, this.start);
+    this.stop = util.createInterceptor(this, this.__stop, this.stop);
     this.update = util.createInterceptor(this, this.__update, this.update);
   }
 
@@ -17,7 +18,7 @@ export default class Component extends Behavior {
   }
 
   __stop() {
-
+    update.remove(this);
   }
 
   __update() {

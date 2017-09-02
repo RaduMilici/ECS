@@ -1,6 +1,6 @@
 import { Renderer, Scene } from 'root/app/init';
 import { Clock } from 'three';
-import Behavior from 'root/core/behavior';
+import { Behavior, frustum, util } from 'root/core';
 
 class Update {
 
@@ -24,6 +24,7 @@ class Update {
     if (scene instanceof Scene) {
       this.__scene = scene.scene;
       this.__camera = scene.camera;
+      frustum.camera = scene.camera;
     }
   }
 
@@ -43,11 +44,12 @@ class Update {
     this.animationFrameId = requestAnimationFrame(this.tick.bind(this));
     this.update();
     this.render();
+    frustum.update();
   }
 
   update() {
     const delta = this.clock.getDelta();
-    this.updateQ.forEach(element => { element.update(delta); });
+    this.updateQ.forEach(element => element.update(delta));
   }
 
   render() {
@@ -58,6 +60,10 @@ class Update {
     if (toUpdate instanceof Behavior) {
       this.updateQ.push(toUpdate);
     }
+  }
+
+  remove(toRemove) {
+    util.removeBehaviorFromArray(toRemove, this.updateQ);
   }
 }
 

@@ -1,6 +1,6 @@
 import { Initializer } from './init';
 import { Vector3 } from 'three';
-import { injector } from 'root/core';
+import { Entity, injector, dispose  } from 'root/core';
 
 class Application {
   constructor() {
@@ -30,10 +30,18 @@ class Application {
   }
 
   add(entity, position = new Vector3()) {
-    if (this.scene) {
+    if (this.scene && entity instanceof Entity) {
       this.scene.add(entity);
       entity.position.copy(position);
       return injector.startEntity(entity);
+    }
+  }
+
+  remove(entity) {
+    if (entity instanceof Entity) {
+      dispose.entity(entity);
+      injector.stopComponents(entity);
+      this.scene.remove(entity);
     }
   }
 }

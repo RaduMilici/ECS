@@ -1,7 +1,8 @@
-import * as THREE from  'three';
+import { Object3D } from  'three';
 import Behavior from './behavior';
 import injector from './injector';
 import util from './util';
+import frustum from './frustum';
 
 export default class Entity extends Behavior {
 
@@ -11,6 +12,7 @@ export default class Entity extends Behavior {
     this.__extendObject3D();
     this.__assignEntityProperties();
     this.start = util.createInterceptor(this, this.__start, this.start);
+    this.__checkOnLeaveFrustum();
   }
 
   __start() {
@@ -27,8 +29,8 @@ export default class Entity extends Behavior {
 
   __extendObject3D() {
     // allows to manipulate an entity just like a THREE.Object3D
-    THREE.Object3D.call(this);
-    Object.assign(this, THREE.Object3D, THREE.Object3D.prototype);
+    Object3D.call(this);
+    Object.assign(this, Object3D, Object3D.prototype);
   }
 
   __assignEntityProperties() {
@@ -39,5 +41,11 @@ export default class Entity extends Behavior {
       __meshes: [],
     };
     Object.assign(this.__ecs, entityProperties);
+  }
+
+  __checkOnLeaveFrustum() {
+    if(typeof this.onLeaveFrustum === 'function') {
+      frustum.add(this);
+    }
   }
 }
