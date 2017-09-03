@@ -1,5 +1,6 @@
 import ECS from 'root';
-import cubeEntity from './entities/cube.entity';
+import Player from './entities/player.entity';
+import Spawner from './spawner';
 
 const settings = {
   fov: 75,
@@ -9,7 +10,9 @@ const settings = {
   far: 100,
   containerId: 'game-view',
 };
+const spawner = new Spawner();
 
 ECS.application.init(settings);
-ECS.application.add(new cubeEntity());
+ECS.application.add(new Player());
+spawner.start();
 ECS.application.camera.position.z = 5;

@@ -1,6 +1,5 @@
 import ECS from 'root';
-import Rotate from '../components/rotate.component';
-import MouseMove from '../components/mouse_move.component';
+import { Rotate, MouseMove } from '../components';
 import Missile from './missile.entity';
 import { util } from 'root/core';
 

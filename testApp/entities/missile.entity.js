@@ -1,5 +1,5 @@
 import ECS from 'root';
-import Move from '../components/move.component';
+import { Move } from '../components';
 import { Vector3 } from 'three';
 import { util } from 'root/core';
 
