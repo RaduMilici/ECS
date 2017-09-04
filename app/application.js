@@ -1,6 +1,6 @@
 import { Initializer } from './init';
 import { Vector3 } from 'three';
-import { Entity, injector, dispose  } from 'root/core';
+import { Entity, injector, dispose, update  } from 'root/core';
 
 class Application {
   constructor() {
@@ -13,6 +13,10 @@ class Application {
 
   init(settings) {
     this.initializer.init(settings);
+  }
+
+  stop() {
+    update.stop();
   }
 
   createScene() {

@@ -27,6 +27,10 @@ class Util {
     return Math.random() * 0xffffff;
   }
 
+  randomInt(min, max) {
+    return Math.round(this.randomFloat(min, max));
+  }
+
   randomFloat (min, max) {
     return Math.random() * (max - min) + min;
   }

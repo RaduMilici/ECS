@@ -1,6 +1,6 @@
 import ECS from 'root';
 import Player from './entities/player.entity';
-import Spawner from './spawner';
+import Spawner from './spawner/spawner';
 
 const settings = {
   fov: 75,

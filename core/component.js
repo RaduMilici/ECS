@@ -1,6 +1,6 @@
 import Behavior from './behavior';
 import injector from './injector';
-import update from './update';
+import { update } from './update';
 import util from './util';
 
 export default class Component extends Behavior {
