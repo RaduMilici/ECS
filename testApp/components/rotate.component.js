@@ -8,10 +8,10 @@ export default class Rotate extends ECS.Component {
   }
 
   start() {
-    const a = util.randomFloat(-0.1, 0.1);
-    this.rots = [util.randomFloat(-a, a),
-      util.randomFloat(-a, a),
-      util.randomFloat(-a, a)];
+    const a = ECS.random.float(-0.1, 0.1);
+    this.rots = [ECS.random.float(-a, a),
+      ECS.random.float(-a, a),
+      ECS.random.float(-a, a)];
   }
 
   update() {

@@ -1,5 +1,6 @@
 import Behavior from './behavior';
-import { BoxGeometry, MeshBasicMaterial, Mesh, EdgesGeometry, LineBasicMaterial, LineSegments } from 'three';
+import random from './random';
+import { BoxGeometry, MeshBasicMaterial, Mesh} from 'three';
 
 class Util {
   constructor(){
@@ -23,21 +24,9 @@ class Util {
     };
   }
 
-  randomColor(){
-    return Math.random() * 0xffffff;
-  }
-
-  randomInt(min, max) {
-    return Math.round(this.randomFloat(min, max));
-  }
-
-  randomFloat (min, max) {
-    return Math.random() * (max - min) + min;
-  }
-
   getTestCube(width = 1, height = 1, depth = 1) {
     const geometry = new BoxGeometry( width, height, depth );
-    const material = new MeshBasicMaterial( { color: this.randomColor() } );
+    const material = new MeshBasicMaterial( { color: random.color() } );
     return new Mesh(geometry, material);
   }
 
