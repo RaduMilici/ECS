@@ -1,7 +1,7 @@
 
 export default class Wave {
   constructor(settings) {
-    this.number = settings.number;
+  	Object.assign(this, settings);
   }
 
   start() {

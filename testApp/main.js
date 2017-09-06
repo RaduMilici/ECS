@@ -7,7 +7,7 @@ const settings = {
   width: 512,
   height: 512,
   near: 0.1,
-  far: 100,
+  far: 1000,
   containerId: 'game-view',
 };
 const spawner = new Spawner();
@@ -15,4 +15,8 @@ const spawner = new Spawner();
 ECS.application.init(settings);
 ECS.application.add(new Player());
 spawner.start();
-ECS.application.camera.position.z = 5;
+ECS.application.camera.position.z = 10;
+
+
+const particles = ECS.application.add(new ECS.Particles());
+console.log(particles);

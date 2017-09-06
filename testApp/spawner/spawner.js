@@ -7,10 +7,7 @@ export default class Spawner {
   constructor() {
     this.waveNumber = 0;
     this.currentWave = null;
-    this.waves = [];
-    for (let i = 0; i < 3; i++) {
-      this.waves.push(new Wave({number: ECS.random.int(30, 60)}));
-    }
+    this.waves = [new Wave({number: Infinity, interval: 200})];
   }
 
   start() {
@@ -20,20 +17,20 @@ export default class Spawner {
   nextWave() {
     this.currentWave = this.waves[this.waveNumber++];
     if (this.waveNumber <= this.waves.length) {
-      this.spawnWave();
+      this.spawnWave(this.currentWave);
     }
     else {
       ECS.application.stop();
     }
   }
 
-  spawnWave() {
+  spawnWave(wave) {
     ECS.InvokeRepeating({
       func() {
         ECS.application.add(new Enemy(), new Vector3(ECS.random.float(-3, 3), 3, 0));
       },
-      interval: 100,
-      times: this.currentWave.number,
+      interval: wave.interval,
+      times: wave.number,
     }).then(this.nextWave.bind(this));
   }
 }
