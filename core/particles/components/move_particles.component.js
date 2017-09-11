@@ -8,7 +8,6 @@ export default class MoveParticles extends Component {
     this.velocity = new Vector3();
     this._direction = new Vector3();
     this._speed = 0;
-    console.log(this);
   }
 
   set speed(s) {
@@ -30,15 +29,6 @@ export default class MoveParticles extends Component {
   }
 
   update(delta) {
-    for(let i = 0, i3 = 0; i < this.entity.__particles; i++, i3 += 3) {
-      this.entity.__positions[i3 + 0] += this.velocity.x;
-      this.entity.__positions[i3 + 1] += this.velocity.y;
-      this.entity.__positions[i3 + 2] += this.velocity.z;
-
-      this.entity.__positions[i3 + 0] %= -5;
-      this.entity.__positions[i3 + 1] %= -5;
-      this.entity.__positions[i3 + 2] %= -5;
-    }
-    this.entity.__geometry.attributes.position.needsUpdate = true;
+    this.entity.particleMaterial.uniforms.time.value += this._speed * delta;
   }
 }

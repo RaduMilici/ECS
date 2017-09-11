@@ -12,6 +12,12 @@ class Util {
     return this.id++;
   }
 
+  times(func, times) {
+    for(let i = 0; i < times; i++) {
+      func();
+    }
+  }
+
   createInterceptor(scope, pre = this.blank, original = this.blank, post = this.blank) {
     if(scope === undefined || typeof original !== 'function') {
       return;
