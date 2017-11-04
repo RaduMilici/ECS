@@ -5,6 +5,7 @@ module.exports = {
     alias: {
       root: __dirname,
     },
+    extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
   },
   entry: path.resolve(__dirname, './testApp/main.js'),
   output: {
@@ -14,6 +15,7 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.css$/, loader: 'style!css' },
+      { test: /\.tsx?$/, loader: 'ts-loader' },
     ],
   },
 };

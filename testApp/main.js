@@ -12,7 +12,7 @@ const settings = {
 };
 const spawner = new Spawner();
 
-ECS.application.init(settings);
+ECS.application.init();
 ECS.application.add(new Player());
 spawner.start();
 ECS.application.camera.position.z = 10;

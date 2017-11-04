@@ -4,6 +4,10 @@ import { update } from './update';
 import util from './util';
 
 export default class Component extends Behavior {
+  __ecs: any;
+  start: () => void;
+  stop: () => void;
+  update: () => void;
 
   constructor() {
     super();

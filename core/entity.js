@@ -1,4 +1,3 @@
-import { Object3D } from  'three';
 import Behavior from './behavior';
 import injector from './injector';
 import util from './util';
@@ -9,7 +8,6 @@ export default class Entity extends Behavior {
   constructor() {
     super();
     this.components = [];
-    this.__extendObject3D();
     this.__assignEntityProperties();
     this.start = util.createInterceptor(this, this.__start, this.start);
     this.__checkOnLeaveFrustum();
@@ -25,12 +23,6 @@ export default class Entity extends Behavior {
     * */
     this.__ecs.__components = this.components;
     injector.registerEntity(this);
-  }
-
-  __extendObject3D() {
-    // allows to manipulate an entity just like a THREE.Object3D
-    Object3D.call(this);
-    Object.assign(this, Object3D, Object3D.prototype);
   }
 
   __assignEntityProperties() {

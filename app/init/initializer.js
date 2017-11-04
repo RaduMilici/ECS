@@ -3,13 +3,22 @@ import Renderer from './renderer';
 import Scene from './scene';
 import mouse from './mouse';
 
+const defaultSettings = {
+  fov: 75,
+  width: 600,
+  height: 600,
+  near: 0.1,
+  far: 1000,
+  containerId: 'game-view',
+};
+
 export default class Init {
   constructor(application) {
     this.application = application;
   }
 
-  init(settings) {
-    const container = this.getContainer(settings);
+  init(settings = defaultSettings) {
+    const container = Init.getContainer(settings);
     this.application.renderer = new Renderer(settings, container);
     this.application.scene = new Scene(settings);
     this.application.camera = this.application.scene.camera;
@@ -31,7 +40,7 @@ export default class Init {
     return scene;
   }
 
-  getContainer(settings) {
+  static getContainer(settings) {
     return settings.containerId ? document.getElementById(settings.containerId) : document.body;
   }
 }
