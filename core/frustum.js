@@ -1,4 +1,3 @@
-import Entity from './entity';
 import util from './util';
 import { Frustum, Matrix4 } from 'three';
 
@@ -11,15 +10,11 @@ class _Frustum {
   }
 
   add(entity) {
-    if(entity instanceof Entity) {
-      this.entities.push(entity);
-    }
+    this.entities.push(entity);
   }
 
   remove(entity) {
-    if(entity instanceof Entity) {
-      util.removeBehaviorFromArray(entity, this.entities);
-    }
+    util.removeBehaviorFromArray(entity, this.entities);
   }
 
   update() {

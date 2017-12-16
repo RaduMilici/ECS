@@ -38,7 +38,7 @@ class Mouse {
   }
 
   onMouseDown(event) {
-    raycaster.cast();
+    raycaster.castFromCamera();
     this.onMouseDownEntityes.forEach(e => e.onMouseDown(event));
   }
 

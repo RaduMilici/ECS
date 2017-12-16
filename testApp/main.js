@@ -18,5 +18,4 @@ spawner.start();
 ECS.application.camera.position.z = 10;
 
 
-const particles = ECS.application.add(new ECS.Particles());
-console.log(particles);
+// ECS.application.add(new ECS.Particles());

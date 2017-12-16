@@ -10,7 +10,7 @@ class _Raycaster {
     this.onClickEntityes = [];
   }
 
-  cast() {
+  castFromCamera() {
     this.raycaster.setFromCamera( this.mouse, this.camera );
     const intersects = this.raycaster.intersectObjects(this.onClickEntityes, true);
     intersects.forEach(i => i.object.entity.onClick(i));

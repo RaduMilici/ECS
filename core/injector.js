@@ -10,13 +10,13 @@ class Injector {
   }
 
   registerEntity(entity) {
-    this.entities[entity.__ecs.__id] = entity;
+    this.entities[entity.__ecs.id] = entity;
     entity.components = this.registerAllComponents(entity);
     mouse.registerEntityEvents(entity);
   }
 
   registerAllComponents(entity) {
-    return entity.__ecs.__components.reduce((accumulator, componentClass) => {
+    return entity.__ecs.components.reduce((accumulator, componentClass) => {
       const instantiatedComponent = new componentClass();
       instantiatedComponent.entity = entity;
       accumulator[instantiatedComponent.name] = instantiatedComponent;

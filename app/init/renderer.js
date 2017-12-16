@@ -5,7 +5,7 @@ const defaultSettings = {
   height: 256,
 };
 
-export default class __Renderer {
+export default class Renderer {
   constructor({ width, height } = defaultSettings, container) {
     this.renderer = new WebGLRenderer();
     this.renderer.setSize( width, height );

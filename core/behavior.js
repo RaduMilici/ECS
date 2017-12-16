@@ -1,9 +1,9 @@
-let id = 0;
+import util from './util';
 
 export default class Behavior {
   constructor() {
     this.__ecs = {
-      __id: id++,
+      id: util.uniqueID(),
     };
   }
 }

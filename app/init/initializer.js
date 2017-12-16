@@ -25,12 +25,6 @@ export default class Init {
     update.start();
   }
 
-  createScene() {
-    const scene = this.application.scene.createScene();
-    scene.__ecs = { id: util.uniqueID() };
-    return scene;
-  }
-
   getContainer(settings) {
     return settings.containerId ? document.getElementById(settings.containerId) : document.body;
   }

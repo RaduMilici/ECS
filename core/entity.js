@@ -18,12 +18,12 @@ export default class Entity extends Behavior {
   __start() {
     /*
     * Transfer component classes here for internal use.
-    * this.components -> this.__ecs.__components
+    * this.components -> this.__ecs.components
     *
     * 'this.components' will become an object with
     * instantiated objects from those classes.
     * */
-    this.__ecs.__components = this.components;
+    this.__ecs.components = this.components;
     injector.registerEntity(this);
   }
 
@@ -36,9 +36,9 @@ export default class Entity extends Behavior {
   __assignEntityProperties() {
     // set some references to the __ecs object for internal use
     const entityProperties = {
-      __injector: injector,
-      __components: [],
-      __meshes: [],
+      injector,
+      components: [],
+      meshes: [],
     };
     Object.assign(this.__ecs, entityProperties);
   }

@@ -23,7 +23,7 @@ class Util {
       return;
     }
 
-    return function(settings){
+    return function(settings) {
       pre.bind(scope)();
       original.bind(scope)(settings);
       post.bind(scope)();
@@ -45,7 +45,7 @@ class Util {
       return;
     }
 
-    const index = array.findIndex(e => e.__ecs.__id === behavior.__ecs.__id);
+    const index = array.findIndex(e => e.__ecs.id === behavior.__ecs.id);
     if (index !== -1) {
       array.splice(index, 1);
     }

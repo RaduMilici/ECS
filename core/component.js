@@ -7,7 +7,7 @@ export default class Component extends Behavior {
 
   constructor() {
     super();
-    this.__ecs.__injector = injector;
+    this.__ecs.injector = injector;
     this.start = util.createInterceptor(this, this.__start, this.start);
     this.stop = util.createInterceptor(this, this.__stop, this.stop);
     this.update = util.createInterceptor(this, this.__update, this.update);
