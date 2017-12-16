@@ -10,16 +10,40 @@ class _Raycaster {
     this.onClickEntityes = [];
   }
 
+  cast(origin, direction) {
+    this.raycaster.set(origin, direction);
+    return this.intersectObjects();
+  }
+
   castFromCamera() {
     this.raycaster.setFromCamera( this.mouse, this.camera );
+    return this.intersectObjects('onClick');
+  }
+
+  intersectObjects(onIntersectName) {
     const intersects = this.raycaster.intersectObjects(this.onClickEntityes, true);
-    intersects.forEach(i => i.object.entity.onClick(i));
+    this.onIntersect(intersects, onIntersectName);
+    return intersects;
+  }
+
+  onIntersect(intersects, onIntersectName) {
+    if (!intersects || !onIntersectName) {
+      return;
+    }
+    intersects.forEach(i => {
+      const entity = i.object.entity;
+      const callback = entity[onIntersectName];
+      if(callback) {
+        callback.bind(entity)(i);
+      }
+      else {
+        throw new Error(`No method named ${onIntersectName} found on intersected object`);
+      }
+    });
   }
 
   addOnClick(entity) {
-    if (entity instanceof Entity) {
-      this.onClickEntityes.push(entity);
-    }
+    this.onClickEntityes.push(entity);
   }
 }
 

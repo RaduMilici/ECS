@@ -12,7 +12,7 @@ export default class Enemy extends ECS.Entity {
 
   start() {
     this.components.Move.direction = new Vector3(0, -1, 0);
-    this.components.Move.speed = 5;
+    this.components.Move.speed = Math.random() * 5;
     this.add(util.getTestCube(0.5, 0.5, 0.5));
   }
 
