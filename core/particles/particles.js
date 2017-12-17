@@ -24,7 +24,7 @@ export default class Particles extends Entity {
   constructor() {
     super();
     this.components = [MoveParticles];
-    this.count = 100000;
+    this.count = 100;
     this.particleMaterial = new ParticleMaterial();
     const geometry = new Geometry();
     const rndX = { min: -15, max: 15};

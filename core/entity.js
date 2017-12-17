@@ -13,7 +13,11 @@ export default class Entity extends Behavior {
     this.__assignEntityProperties();
     this.start = util.createInterceptor(this, this.__start, this.start);
     this.__checkOnLeaveFrustum();
+    this.__ecs.layer = 'global';
   }
+
+  get layer() { return this.__ecs.layer; }
+  set layer(layer) { this.__ecs.layer = layer; }
 
   __start() {
     /*

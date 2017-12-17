@@ -38,8 +38,9 @@ class Mouse {
   }
 
   onMouseDown(event) {
-    raycaster.castFromCamera();
-    this.onMouseDownEntityes.forEach(e => e.onMouseDown(event));
+    // called when user presses mouse button anywhere in the app
+    const intersects = raycaster.castFromCamera();
+    this.onMouseDownEntityes.forEach(e => e.onMouseDown(event, intersects));
   }
 
 }

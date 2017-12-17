@@ -50,6 +50,14 @@ class Util {
       array.splice(index, 1);
     }
   }
+
+  deg2rad(deg) {
+    return deg * Math.PI / 180;
+  }
+
+  rad2deg(rad) {
+    return rad * 180 / Math.PI;
+  }
 }
 
 export default new Util();

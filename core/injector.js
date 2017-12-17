@@ -1,5 +1,6 @@
 import { mouse } from 'root/app/init';
 import util from './util';
+import raycaster from './raycaster';
 
 class Injector {
 
@@ -12,6 +13,7 @@ class Injector {
   registerEntity(entity) {
     this.entities[entity.__ecs.id] = entity;
     entity.components = this.registerAllComponents(entity);
+    raycaster.add(entity);
     mouse.registerEntityEvents(entity);
   }
 

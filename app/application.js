@@ -1,6 +1,6 @@
 import { Initializer } from './init';
-import { Vector3 } from 'three';
-import { Entity, injector, dispose, update  } from 'root/core';
+import { Vector3, Euler } from 'three';
+import { injector, dispose, update  } from 'root/core';
 
 class Application {
   constructor() {
@@ -33,20 +33,17 @@ class Application {
     }
   }
 
-  add(entity, position = new Vector3()) {
-    if (this.scene && entity instanceof Entity) {
-      this.scene.add(entity);
-      entity.position.copy(position);
-      return injector.startEntity(entity);
-    }
+  add(entity, position = new Vector3(), rotation = new Euler()) {
+    this.scene.add(entity);
+    entity.position.copy(position);
+    entity.rotation.copy(rotation);
+    return injector.startEntity(entity);
   }
 
   remove(entity) {
-    if (entity instanceof Entity) {
-      dispose.entity(entity);
-      injector.stopComponents(entity);
-      this.scene.remove(entity);
-    }
+    dispose.entity(entity);
+    injector.stopComponents(entity);
+    this.scene.remove(entity);
   }
 }
 
