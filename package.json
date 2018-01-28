@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --content-base dist/"
+    "dev": "webpack-dev-server --content-base dist/",
+    "start": "node ./testApp/main",
+    "format": "prettier --single-quote --no-semi --write --trailing-comma es5 --print-width 100 \"**/*.js\""
   },
   "repository": {
     "type": "git",
@@ -20,10 +22,12 @@
   "devDependencies": {
     "babel-eslint": "^7.2.3",
     "eslint": "^3.19.0",
+    "uglifyjs-webpack-plugin": "^1.1.4",
     "webpack": "^3.5.3",
     "webpack-dev-server": "^2.7.1"
   },
   "dependencies": {
+    "prettier": "^1.10.2",
     "three": "^0.86.0"
   }
 }

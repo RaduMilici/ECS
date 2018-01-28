@@ -1,4 +1,5 @@
-const path = require('path');
+const path = require('path')
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
   resolve: {
@@ -12,8 +13,7 @@ module.exports = {
     filename: 'bundle.js',
   },
   module: {
-    loaders: [
-      { test: /\.css$/, loader: 'style!css' },
-    ],
+    loaders: [{ test: /\.css$/, loader: 'style!css' }],
   },
-};
+  plugins: [new UglifyJSPlugin()],
+}
