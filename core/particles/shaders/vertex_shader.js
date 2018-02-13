@@ -10,4 +10,4 @@ export default `
     gl_PointSize = 1.0;
     gl_Position = projectionMatrix  * modelViewMatrix * vec4( pos, 1.0 );
   }
-`;
+`

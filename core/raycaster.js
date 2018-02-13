@@ -1,26 +1,66 @@
-import { Raycaster } from 'three';
-import { Entity } from 'root/core';
+import { Raycaster } from 'three'
 
 class _Raycaster {
-
   constructor() {
-    this.mouse = null;
-    this.camera = null;
-    this.raycaster = new Raycaster();
-    this.onClickEntityes = [];
+    this.mouse = null
+    this.camera = null
+    this.raycaster = new Raycaster()
+    this.layers = {
+      global: [],
+    }
   }
 
-  castFromCamera() {
-    this.raycaster.setFromCamera( this.mouse, this.camera );
-    const intersects = this.raycaster.intersectObjects(this.onClickEntityes, true);
-    intersects.forEach(i => i.object.entity.onClick(i));
+  add(entity) {
+    this.addToLayer(entity)
   }
 
   addOnClick(entity) {
-    if (entity instanceof Entity) {
-      this.onClickEntityes.push(entity);
+    this.addToLayer(entity)
+  }
+
+  addToLayer(entity) {
+    const desiredLayer = entity.layer
+    const selectedLayer = this.layers[desiredLayer]
+    if (selectedLayer) {
+      selectedLayer.push(entity)
+    } else {
+      this.layers[desiredLayer] = [entity]
     }
+  }
+
+  cast(origin, direction, layer = 'global') {
+    this.raycaster.set(origin, direction)
+    return this.intersectObjects({ layer })
+  }
+
+  castFromCamera() {
+    this.raycaster.setFromCamera(this.mouse, this.camera)
+    const settings = { layer: 'global', onIntersectName: 'onClick' }
+    return this.intersectObjects(settings)
+  }
+
+  intersectObjects({ layer, onIntersectName }) {
+    const selectedLayer = this.layers[layer]
+    if (!selectedLayer) return []
+    const intersects = this.raycaster.intersectObjects(selectedLayer, true)
+    this.onIntersect(intersects, onIntersectName)
+    return intersects
+  }
+
+  onIntersect(intersects, onIntersectName) {
+    if (!intersects || !onIntersectName) {
+      return
+    }
+    intersects.forEach(i => {
+      const entity = i.object.entity
+      const callback = entity[onIntersectName]
+      if (callback) {
+        callback.bind(entity)(i)
+      } else {
+        throw new Error(`No method named ${onIntersectName} found on intersected object`)
+      }
+    })
   }
 }
 
-export default new _Raycaster();
+export default new _Raycaster()

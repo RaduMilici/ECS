@@ -1,3 +1,3 @@
-import Particles from './particles';
+import Particles from './particles'
 
-export default Particles;
+export default Particles

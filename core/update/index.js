@@ -1,4 +1,4 @@
-import InvokeRepeating from './invoke_repeating';
-import update from './update';
+import InvokeRepeating from './invoke_repeating'
+import update from './update'
 
-export { InvokeRepeating, update };
+export { InvokeRepeating, update }
