@@ -1,11 +1,11 @@
 {
   "name": "ecs-three",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --content-base dist/",
     "start": "node ./testApp/main",
+    "dev": "webpack-dev-server --content-base dist/",
     "format": "prettier --single-quote --no-semi --write --trailing-comma es5 --print-width 100 \"**/*.js\""
   },
   "repository": {
@@ -29,5 +29,6 @@
   },
   "dependencies": {
     "three": "^0.86.0"
-  }
+  },
+  "main": "./dist/bundle.js"
 }
