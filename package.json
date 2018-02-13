@@ -1,8 +1,8 @@
 {
   "name": "ecs-three",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/bundle.js",
   "scripts": {
     "start": "node ./testApp/main",
     "dev": "webpack-dev-server --content-base dist/",
@@ -29,6 +29,5 @@
   },
   "dependencies": {
     "three": "^0.86.0"
-  },
-  "main": "./dist/bundle.js"
+  }
 }
