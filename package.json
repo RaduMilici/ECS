@@ -3,6 +3,8 @@
   "version": "1.0.5",
   "description": "",
   "main": "./dist/bundle.js",
+  "module": "./index.js",
+  "jsnext:main": "./index.js",
   "scripts": {
     "start": "node ./testApp/main",
     "dev": "webpack-dev-server --content-base dist/",
