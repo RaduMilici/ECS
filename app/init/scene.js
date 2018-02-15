@@ -1,5 +1,5 @@
 import { Scene, PerspectiveCamera } from 'three'
-import Entity from 'root/core/entity'
+import Entity from '../../core/entity'
 
 const defaultCameraSettings = {
   fov: 75,

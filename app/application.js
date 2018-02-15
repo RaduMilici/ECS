@@ -1,6 +1,6 @@
 import { Initializer } from './init'
 import { Vector3, Euler } from 'three'
-import { injector, dispose, update } from 'root/core'
+import { injector, dispose, update } from '../core'
 
 class Application {
   constructor() {

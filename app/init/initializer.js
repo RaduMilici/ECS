@@ -1,4 +1,4 @@
-import { util, update, raycaster } from 'root/core'
+import { update, raycaster } from '../../core'
 import Renderer from './renderer'
 import Scene from './scene'
 import mouse from './mouse'

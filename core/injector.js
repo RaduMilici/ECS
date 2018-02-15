@@ -1,4 +1,4 @@
-import { mouse } from 'root/app/init'
+import { mouse } from '../app/init'
 import util from './util'
 import raycaster from './raycaster'
 

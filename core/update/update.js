@@ -1,6 +1,6 @@
-import { Renderer, Scene } from 'root/app/init'
+import { Renderer, Scene } from '../../app/init'
 import { Clock } from 'three'
-import { Behavior, frustum, util } from 'root/core'
+import { Behavior, frustum, util } from '../../core'
 
 class Update {
   constructor() {

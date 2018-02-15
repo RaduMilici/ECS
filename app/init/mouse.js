@@ -1,5 +1,5 @@
 import { Vector2 } from 'three'
-import { Entity, raycaster } from 'root/core'
+import { Entity, raycaster } from '../../core'
 
 class Mouse {
   constructor() {
