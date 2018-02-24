@@ -6,8 +6,8 @@
   "module": "./index.js",
   "jsnext:main": "./index.js",
   "scripts": {
-    "start": "node ./testApp/main",
     "dev": "webpack-dev-server --content-base dist/",
+    "build": "webpack",
     "format": "prettier --single-quote --no-semi --write --trailing-comma es5 --print-width 100 \"**/*.js\""
   },
   "repository": {
@@ -24,10 +24,13 @@
   "devDependencies": {
     "babel-eslint": "^7.2.3",
     "eslint": "^3.19.0",
+    "prettier": "^1.10.2",
     "uglifyjs-webpack-plugin": "^1.1.4",
-    "webpack": "^3.5.3",
+    "webpack": "^3.11.0",
     "webpack-dev-server": "^2.7.1",
-    "prettier": "^1.10.2"
+    "@babel/core": "^7.0.0-beta.40",
+    "@babel/preset-env": "^7.0.0-beta.40",
+    "babel-loader": "^8.0.0-beta.0"
   },
   "dependencies": {
     "three": "^0.86.0"
