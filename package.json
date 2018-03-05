@@ -2,7 +2,7 @@
   "name": "ecs-three",
   "version": "1.0.9",
   "description": "",
-  "main": "./dist/bundle.js",
+  "main": "./dist/index.js",
   "module": "./index.js",
   "jsnext:main": "./index.js",
   "scripts": {
