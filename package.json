@@ -33,6 +33,6 @@
     "webpack-dev-server": "^2.7.1"
   },
   "dependencies": {
-    "three": "^0.86.0"
+    "three": "^0.90.0"
   }
 }
