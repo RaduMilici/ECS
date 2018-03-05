@@ -1,4 +1,4 @@
-import { Object3D } from 'three'
+import { Object3D, EventDispatcher } from 'three'
 import Behavior from './behavior'
 import injector from './injector'
 import util from './util'
@@ -37,7 +37,7 @@ export default class Entity extends Behavior {
   __extendObject3D() {
     // allows to manipulate an entity just like a THREE.Object3D
     Object3D.call(this)
-    Object.assign(this, Object3D, Object3D.prototype)
+    Object.assign(this, Object.create(EventDispatcher.prototype), Object3D, Object3D.prototype)
   }
 
   __assignEntityProperties() {
