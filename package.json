@@ -3,8 +3,6 @@
   "version": "1.0.10",
   "description": "",
   "main": "./dist/index.js",
-  "module": "./index.js",
-  "jsnext:main": "./index.js",
   "scripts": {
     "dev": "webpack-dev-server --content-base dist/",
     "build": "babel . --presets babel-preset-es2015 --ignore node_modules --out-dir dist",
