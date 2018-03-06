@@ -37,7 +37,7 @@ var Renderer = function () {
 
     _classCallCheck(this, Renderer);
 
-    this.renderer = new _three.WebGLRenderer();
+    this.renderer = new _three.WebGLRenderer({ preserveDrawingBuffer: true });
     this.renderer.setSize(width, height);
     container.append(this.renderer.domElement);
   }
@@ -46,6 +46,13 @@ var Renderer = function () {
     key: 'render',
     value: function render(scene, camera) {
       this.renderer.render(scene, camera);
+    }
+  }, {
+    key: 'screenshot',
+    value: function screenshot() {
+      var mime = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'image/jpeg';
+
+      return this.renderer.domElement.toDataURL(mime);
     }
   }]);
 
