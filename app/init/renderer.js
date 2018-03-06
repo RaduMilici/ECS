@@ -7,12 +7,16 @@ const defaultSettings = {
 
 export default class Renderer {
   constructor({ width, height } = defaultSettings, container) {
-    this.renderer = new WebGLRenderer()
+    this.renderer = new WebGLRenderer({ preserveDrawingBuffer: true })
     this.renderer.setSize(width, height)
     container.append(this.renderer.domElement)
   }
 
   render(scene, camera) {
     this.renderer.render(scene, camera)
+  }
+
+  screenshot(mime = 'image/jpeg') {
+    return this.renderer.domElement.toDataURL(mime);
   }
 }
