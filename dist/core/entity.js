@@ -67,7 +67,7 @@ var Entity = function (_Behavior) {
     value: function __extendObject3D() {
       // allows to manipulate an entity just like a THREE.Object3D
       _three.Object3D.call(this);
-      Object.assign(this, Object.create(_three.EventDispatcher.prototype), _three.Object3D, _three.Object3D.prototype);
+      Object.assign(this, _three.Object3D, _three.Object3D.prototype, _three.EventDispatcher, _three.EventDispatcher.prototype);
     }
   }, {
     key: '__assignEntityProperties',

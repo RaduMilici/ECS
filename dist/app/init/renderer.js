@@ -38,9 +38,7 @@ var Renderer = function () {
   }, {
     key: 'screenshot',
     value: function screenshot() {
-      var mime = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'image/jpeg';
-
-      return this.renderer.domElement.toDataURL(mime);
+      return this.renderer.domElement.toDataURL();
     }
   }]);
 

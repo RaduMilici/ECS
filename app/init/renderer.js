@@ -16,7 +16,7 @@ export default class Renderer {
     this.renderer.render(scene, camera)
   }
 
-  screenshot(mime = 'image/jpeg') {
-    return this.renderer.domElement.toDataURL(mime);
+  screenshot() {
+    return this.renderer.domElement.toDataURL();
   }
 }
