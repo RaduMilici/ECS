@@ -1,5 +1,4 @@
 import { Scene, PerspectiveCamera } from 'three'
-import Entity from '../../core/entity'
 
 const defaultCameraSettings = {
   fov: 75,
@@ -10,9 +9,9 @@ const defaultCameraSettings = {
 }
 
 export default class _Scene {
-  constructor() {
+  constructor(settings) {
     this.scene = _Scene.createScene()
-    this.camera = _Scene.createCamera()
+    this.camera = _Scene.createCamera(settings)
   }
 
   static createScene() {
@@ -24,14 +23,10 @@ export default class _Scene {
   }
 
   add(entity) {
-    if (entity instanceof Entity) {
-      this.scene.add(entity)
-    }
+    this.scene.add(entity)
   }
 
   remove(entity) {
-    if (entity instanceof Entity) {
-      this.scene.remove(entity)
-    }
+    this.scene.remove(entity)
   }
 }

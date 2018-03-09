@@ -8,12 +8,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _three = require('three');
 
-var _entity = require('../../core/entity');
-
-var _entity2 = _interopRequireDefault(_entity);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var defaultCameraSettings = {
@@ -25,26 +19,22 @@ var defaultCameraSettings = {
 };
 
 var _Scene = function () {
-  function _Scene() {
+  function _Scene(settings) {
     _classCallCheck(this, _Scene);
 
     this.scene = _Scene.createScene();
-    this.camera = _Scene.createCamera();
+    this.camera = _Scene.createCamera(settings);
   }
 
   _createClass(_Scene, [{
     key: 'add',
     value: function add(entity) {
-      if (entity instanceof _entity2.default) {
-        this.scene.add(entity);
-      }
+      this.scene.add(entity);
     }
   }, {
     key: 'remove',
     value: function remove(entity) {
-      if (entity instanceof _entity2.default) {
-        this.scene.remove(entity);
-      }
+      this.scene.remove(entity);
     }
   }], [{
     key: 'createScene',
