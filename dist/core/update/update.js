@@ -54,7 +54,7 @@ var Update = function () {
     value: function update(timestamp) {
       var delta = this.clock.getDelta();
       this.updateQ.forEach(function (element) {
-        return element.update(delta, timestamp);
+        return element.update({ delta: delta, timestamp: timestamp });
       });
     }
   }, {

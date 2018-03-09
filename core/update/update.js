@@ -48,7 +48,7 @@ class Update {
 
   update(timestamp) {
     const delta = this.clock.getDelta()
-    this.updateQ.forEach(element => element.update(delta, timestamp))
+    this.updateQ.forEach(element => element.update({ delta, timestamp }))
   }
 
   render() {
