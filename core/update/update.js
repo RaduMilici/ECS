@@ -39,16 +39,16 @@ class Update {
     cancelAnimationFrame(this.animationFrameId)
   }
 
-  tick() {
+  tick(timestamp) {
     this.animationFrameId = requestAnimationFrame(this.tick.bind(this))
-    this.update()
+    this.update(timestamp)
     this.render()
     frustum.update()
   }
 
-  update() {
+  update(timestamp) {
     const delta = this.clock.getDelta()
-    this.updateQ.forEach(element => element.update(delta))
+    this.updateQ.forEach(element => element.update(delta, timestamp))
   }
 
   render() {
