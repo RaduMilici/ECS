@@ -43,18 +43,18 @@ var Update = function () {
     }
   }, {
     key: 'tick',
-    value: function tick() {
+    value: function tick(timestamp) {
       this.animationFrameId = requestAnimationFrame(this.tick.bind(this));
-      this.update();
+      this.update(timestamp);
       this.render();
       _core.frustum.update();
     }
   }, {
     key: 'update',
-    value: function update() {
+    value: function update(timestamp) {
       var delta = this.clock.getDelta();
       this.updateQ.forEach(function (element) {
-        return element.update(delta);
+        return element.update(delta, timestamp);
       });
     }
   }, {
