@@ -82,7 +82,7 @@ var _Raycaster = function () {
         if (callback) {
           callback.bind(entity)(i);
         } else {
-          throw new Error('No method named ' + onIntersectName + ' found on intersected object');
+          console.error('No method named ' + onIntersectName + ' found on intersected object');
         }
       });
     }
